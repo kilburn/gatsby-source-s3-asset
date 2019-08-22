@@ -7,7 +7,7 @@ import fixtures from './fixtures.json'
 const ListObjectsMock = jest.fn()
 jest.mock('aws-sdk', () => ({
   S3: class {
-    public listObjectsV2 = ListObjectsMock
+    listObjectsV2 = ListObjectsMock
   },
 }))
 
