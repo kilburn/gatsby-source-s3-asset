@@ -1,0 +1,105 @@
+version: 2.1
+
+# ====================
+# WORKFLOW DECLARATION
+# ====================
+workflows:
+  version: 2
+  main:
+    jobs:
+      - install_dependencies
+      - build:
+          requires:
+            - install_dependencies
+      - lint:
+          requires:
+            - install_dependencies
+      - test:
+          requires:
+            - install_dependencies
+      - release:
+          requires:
+            - build
+            - lint
+            - test
+          filters:
+            branches:
+              only:
+                - master
+
+# ====================
+# ALIASES
+# ====================
+docker_image: &docker_image
+  docker:
+    - image: circleci/node:12
+  working_directory: /home/circleci/project/
+
+restore_cache: &restore_cache
+  restore_cache:
+    keys:
+      - dependencies-{{ checksum "package.json" }}
+      - dependencies-
+
+save_cache: &save_cache
+  save_cache:
+    paths:
+      - node_modules/
+    key: dependencies-{{ checksum "package.json" }}
+
+install_dependencies: &install_dependencies
+  run:
+    name: Install dependencies.
+    command: yarn -s --no-progress --frozen-lockfile
+
+# ================
+# JOB DECLARATIONS
+# ================
+jobs:
+  install_dependencies:
+    <<: *docker_image
+    steps:
+      - checkout
+      - *restore_cache
+      - *install_dependencies
+      - *save_cache
+
+  lint:
+    <<: *docker_image
+    steps:
+      - checkout
+      - *restore_cache
+      - run:
+          name: Run linter.
+          command: yarn lint
+
+  test:
+    <<: *docker_image
+    steps:
+      - checkout
+      - *restore_cache
+      - run:
+          name: Run jest test suite & upload results.
+          command: |
+            yarn test --coverage
+            cat ./coverage/lcov.info | yarn codacy-coverage
+            yarn codecov
+
+  build:
+    <<: *docker_image
+    steps:
+      - checkout
+      - *restore_cache
+      - run:
+          name: Transpile sources.
+          command: yarn build
+      - run:
+          name: Compile type definitions.
+          command: yarn ts:defs
+
+  release:
+    <<: *docker_image
+    steps:
+      - checkout
+      - *restore_cache
+      - run: yarn release
