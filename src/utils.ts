@@ -79,7 +79,7 @@ export const createS3AssetNode = ({
 }: {
   createNode: Function
   createNodeId: (objectHash: string) => string
-  createContentDigest: (content: any) => string
+  createContentDigest: (content: object) => string
   entity: S3.Object
   url: string
 }) => {

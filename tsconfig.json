@@ -16,7 +16,11 @@
     "declaration": true,
     //    "inlineSourceMap": true,
     //    "inlineSources": true,
-    "lib": ["dom", "esnext", "es5"],
+    "lib": [
+      "dom",
+      "esnext",
+      "es5"
+    ],
     "module": "esnext",
     // Search under node_modules for non-relative imports.
     "moduleResolution": "node",
@@ -30,6 +34,11 @@
     "rootDir": "src",
     "strictNullChecks": true
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules/**", "**/*.spec.ts"]
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules/**",
+    "**/*.spec.ts"
+  ],
 }
