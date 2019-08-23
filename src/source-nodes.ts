@@ -17,6 +17,9 @@ export interface SourceS3Options {
   // e.g., support CDN's (such as CloudFront), or any other S3-compliant API
   // (such as DigitalOcean Spaces.)
   domain?: string
+  // Public domain used to construct file URLs (useful if you are serving the
+  // bucket's files through a CDN such as CloudFront)
+  publicDomain?: string
   region?: string
   // Defaults to HTTP.
   protocol?: string
@@ -58,6 +61,7 @@ export const sourceNodes = async (
     domain = 's3.amazonaws.com',
     region = 'us-east-1',
     protocol = 'http',
+    publicDomain,
   }: SourceS3Options
 ) => {
   const { createNode } = actions
@@ -82,6 +86,7 @@ export const sourceNodes = async (
         key,
         region,
         protocol,
+        publicDomain,
       })
 
       if (!url) {
