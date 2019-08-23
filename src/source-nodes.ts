@@ -39,7 +39,7 @@ const fetchBucketItems = async (bucketName: string, s3: S3) => {
         ContinuationToken: nextContinuationToken,
       })
       .promise()
-    s3Entities.push.apply(s3Entities, listObjectsResponse.Contents || [])
+    s3Entities.push(...(listObjectsResponse.Contents || []))
     if (!listObjectsResponse.IsTruncated) {
       return s3Entities
     }

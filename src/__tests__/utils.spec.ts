@@ -37,11 +37,15 @@ describe('utils', () => {
   test('constructS3UrlForAsset: invalid input', () => {
     expect(() => {
       // Invalid params -- `key` is required.
-      // @ts-ignore
       constructS3UrlForAsset({
         bucketName: 'js-bucket',
         domain: 'minio.jesses.io',
         protocol: 'http',
+      } as {
+        bucketName: string
+        domain: string
+        protocol: string
+        key: string
       })
     }).toThrow()
   })

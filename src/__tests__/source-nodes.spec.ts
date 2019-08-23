@@ -12,7 +12,7 @@ jest.mock('aws-sdk', () => ({
 }))
 
 describe('Source S3Asset nodes.', () => {
-  let nodes = {}
+  const nodes = {}
 
   const sourceNodeArgs = {
     actions: {
