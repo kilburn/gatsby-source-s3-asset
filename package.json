@@ -1,7 +1,7 @@
 {
   "name": "gatsby-source-s3-asset",
   "description": "GatsbyJS plugin to source assets from S3-compliant APIs.",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "author": "Marc Pujol <marc.pujol@interficie.com>",
   "dependencies": {
     "aws-sdk": "2.516.0",
