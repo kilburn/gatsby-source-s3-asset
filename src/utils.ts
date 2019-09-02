@@ -2,6 +2,7 @@ import { S3 } from 'aws-sdk'
 import invariant from 'invariant'
 import mime from 'mime'
 import NodeFields from './types/EntityNode'
+import { S3Object } from './types/S3Object'
 
 // =========================
 // Plugin-specific constants.
@@ -21,7 +22,7 @@ export const createS3Instance = ({ accessKeyId, domain, secretAccessKey }) =>
     signatureVersion: 'v4',
   })
 
-export const getNodeFields = (entity: S3.Object, url: string): NodeFields => {
+export const getNodeFields = (entity: S3Object, url: string): NodeFields => {
   const { ETag, Key } = entity
   invariant(Key, 'Entity Key must be defined.')
 
@@ -30,8 +31,9 @@ export const getNodeFields = (entity: S3.Object, url: string): NodeFields => {
   // > to the contents of an object, not its metadata.
   // @see https://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html
   return {
-    Key: Key!,
+    Key: Key,
     ETag: ETag!.replace(/"/g, ''),
+    Metadata: entity.Metadata,
     url,
   }
 }
@@ -80,7 +82,7 @@ export const createS3AssetNode = ({
   createNode: Function
   createNodeId: (objectHash: string) => string
   createContentDigest: (content: object) => string
-  entity: S3.Object
+  entity: S3Object
   url: string
 }) => {
   const nodeData = getNodeFields(entity, url)

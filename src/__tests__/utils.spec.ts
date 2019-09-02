@@ -53,7 +53,8 @@ describe('utils', () => {
   test('Verify getNodeFields utils func.', () => {
     const ETag = '"833816655f9709cb1b2b8ac9505a3c65"'
     const Key = '2019-04-10/DSC02943.jpg'
-    const entity = { ETag, Key }
+    const Metadata = {}
+    const entity = { ETag, Key, Metadata }
     const url = constructS3UrlForAsset({
       bucketName: 'js-bucket',
       domain: 'minio.jesses.io',
@@ -67,6 +68,7 @@ describe('utils', () => {
       Key,
       ETag: '833816655f9709cb1b2b8ac9505a3c65',
       url,
+      Metadata,
     })
   })
 })
