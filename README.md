@@ -39,7 +39,7 @@ with this package:
 
 Add the dependency to your `package.json`:
 
-```console
+```shell
 $ yarn add gatsby-source-s3-asset
 $ # Or:
 $ npm install --save gatsby-source-s3-asset
