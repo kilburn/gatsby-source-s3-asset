@@ -1,9 +1,9 @@
 import S3AssetNode from './types/S3AssetNode'
 
-function loadNodeContent(fileNode) {
-  return fs.readFile(fileNode.absolutePath, `utf-8`);
+const loadNodeContent = (fileNode: any) => {
+    return fs.readFile(fileNode.absolutePath, `utf-8`)
 }
 
-exports.loadNodeContent = loadNodeContent;
+exports.loadNodeContent = loadNodeContent
 
 export { S3AssetNode }
