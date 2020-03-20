@@ -57,6 +57,8 @@ const sourceS3 = {
     domain: null, // [optional] Not necessary to define for AWS S3; defaults to `s3.amazonaws.com`
     protocol: 'https', // [optional] Default to `https`.
     publicDomain: null, // [optional] Use this domain to construct the public URL for the assets
+    accessKeyId: 'your AWS Access Key', // You can also use something like process.env.AWS_ACCESS_KEY
+    secretAccessKey: 'Your AWS Secret Access Key',
   },
 }
 
