@@ -3,11 +3,10 @@ export default interface S3AssetNode {
   LastModified: Date
   ETag: string
   Key: string
+  url: string
   Metadata: { [k: string]: string }
   internal: {
-    content: string
-    contentDigest: string
     mediaType: string
-    type: string
+    type: 'S3Asset'
   }
 }
