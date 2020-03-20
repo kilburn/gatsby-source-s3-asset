@@ -88,6 +88,9 @@ jobs:
   build:
     <<: *docker_image
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "d5:1b:6d:13:86:99:6f:df:7c:42:e8:e1:32:05:2a:e0"
       - checkout
       - *restore_cache
       - run:
